@@ -9,14 +9,14 @@ import cv2
 from PIL import Image
 from tensorflow.keras import utils as np_utils#新版tensorflow.keras得这样引入np_utils
 
-np.random.seed(20151306)#林正浩
+np.random.seed(20151306)#林正浩 #Lin, ZhengHao
 
 path_workspace = 'C:/GYOUZA/work/FormalProject_Workspace/GraduationProject/NeuralNetworkModel'
 
-#csv读取数据函数
+#csv读取数据函数 #Load data from CSV function
 def load_data_fromCSV():
-    #dataset=pd.read_csv('./datasets/fer2013/fer2013.csv')#取整个数据集
-    dataset=pd.read_csv('./datasets/fer2013/fer2013_minimized.csv')#取整个数据集
+    #dataset=pd.read_csv('./datasets/fer2013/fer2013.csv')#取整个数据集 #Read the whole dataset
+    dataset=pd.read_csv('./datasets/fer2013/fer2013_minimized.csv')#取部分数据集 #Read part of the dataset
     dataset = dataset.values
     labels = dataset[:,0]
     datas = dataset[:,1]
@@ -46,7 +46,7 @@ def load_data_fromCSV():
 
     return train_x,train_y,test_x,test_y #X=图片，Y=表情标签
 
-#简单CNN结构
+#简单CNN结构 #simple CNN
 def build_model():
     model = Sequential()
     model.add(Conv2D(32, (5,5), activation='relu', input_shape=[48, 48, 1]))
@@ -70,7 +70,7 @@ def build_model():
 
 
 
-#设置训练用参数
+#设置训练用参数 #Set parameter for training
 batch_size = 1
 num_classes = 7
 num_epoch = 2

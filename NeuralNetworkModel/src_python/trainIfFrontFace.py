@@ -7,7 +7,7 @@ import pandas as pd
 from tensorflow.keras.models import load_model
 import cv2
 from PIL import Image
-from tensorflow.keras import utils as np_utils#新版tensorflow.keras得这样引入np_utils
+from tensorflow.keras import utils as np_utils#新版tensorflow.keras得这样引入np_utils #np_utils should be imported this way in new version of tensorflow.keras
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import Convolution2D
@@ -23,26 +23,26 @@ import pickle
 import time
 from tensorflow.keras import regularizers
 
-np.random.seed(20151306)#林正浩
+np.random.seed(20151306)#林正浩 #Lin, ZhengHao
 
 path_workspace = 'C:/Users/win10/Desktop/DEMO_HAYASHI/CNN_simpliest_1x3x3'
 path_Haar_Cascade_Model_path = '%s/saved_models/haarcascade_frontalface_alt.xml' %path_workspace
 
 model_name = 'improved CNN-averagepool'
 
-#显示训练过程、正确率与损失
+#显示训练过程、正确率与损失 #Display the training process, accuracy and loss
 def show_train_history(train_history):
-    plt.plot(train_history.history['acc'], 'r')#画出曲线
-    plt.plot(train_history.history['val_acc'], 'g')#画出曲线
-    plt.plot(train_history.history['loss'], 'b')#画出曲线
-    plt.plot(train_history.history['val_loss'], 'k')#画出曲线
-    plt.title(model_name)#设置本plot的标题
-    plt.ylabel('acc/loss')#设置y轴标记
-    plt.xlabel('epoch')#设置x轴标记
-    plt.legend(['train_acc', 'val_acc', 'train_loss', 'val_loss'], loc='upper left')#设置曲线注释在左上角
+    plt.plot(train_history.history['acc'], 'r')#画出曲线 #Draw the curve
+    plt.plot(train_history.history['val_acc'], 'g')#画出曲线 #Draw the curve
+    plt.plot(train_history.history['loss'], 'b')#画出曲线 #Draw the curve
+    plt.plot(train_history.history['val_loss'], 'k')#画出曲线 #Draw the curve
+    plt.title(model_name)#设置本plot的标题 #Set title for this plot
+    plt.ylabel('acc/loss')#设置y轴标记 #Set the label of Y
+    plt.xlabel('epoch')#设置x轴标记 #Set the label of X
+    plt.legend(['train_acc', 'val_acc', 'train_loss', 'val_loss'], loc='upper left')#设置曲线注释在左上角 #Set the comment for the curve at top left corner
     plt.show()
 
-#load 数据，并转给可以训练的格式
+#load 数据，并转给可以训练的格式 #Load data, and convert it to the format for training
 def load_data():
     dataset=pd.read_csv('../datasets/fer2013.csv')
     dataset=dataset.values
@@ -63,7 +63,7 @@ def load_data():
         else:
             test_x.append(pixels)
             test_y.append(labels[i])
-    train_x=np.array(train_x).astype(float)/255.0#归一化
+    train_x=np.array(train_x).astype(float)/255.0#归一化 #Normalization to 0-1
     train_y=np.array(train_y).astype(int)
     test_x=np.array(test_x).astype(float)/255.0
     test_y=np.array(test_y).astype(int)
@@ -74,9 +74,9 @@ def load_data():
     return train_x,train_y,test_x,test_y
 
 def load_data_IfFront():
-    face_classifier = cv2.CascadeClassifier(path_Haar_Cascade_Model_path)#加载opencv人脸识别器
-    dataset=pd.read_csv('../datasets/fer2013.csv')#取整个数据集
-    #dataset=pd.read_csv('../datasets/fer2013_minimized.csv')#取整个数据集
+    face_classifier = cv2.CascadeClassifier(path_Haar_Cascade_Model_path)#加载opencv人脸识别器 #Load opencv face classifier
+    dataset=pd.read_csv('../datasets/fer2013.csv')#取整个数据集 #Load the whole dataset
+    #dataset=pd.read_csv('../datasets/fer2013_minimized.csv')#取部分数据集 #Load the trimmed dataset
     dataset = dataset.values
     labels = dataset[:,0]
     datas = dataset[:,1]
@@ -88,15 +88,15 @@ def load_data_IfFront():
     test_y=[]
 
     for i in range(datas.shape[0]):
-        pixels=np.array(datas[i].split(' '))#空格分隔符
+        pixels=np.array(datas[i].split(' '))#空格分隔符 #Space separator
 
         pixels = pixels.reshape(48,48)
-        gray_face = np.resize(pixels,(48,48))#调整图片尺寸
-        gray_face = gray_face.reshape(48,48,1).astype(np.uint8)#调成模型所需格式
+        gray_face = np.resize(pixels,(48,48))#调整图片尺寸 #Adjust the size of the image
+        gray_face = gray_face.reshape(48,48,1).astype(np.uint8)#调成模型所需格式 #Convert it to the formation the model needs
         gray_face = cv2.cvtColor(np.asarray(gray_face), cv2.COLOR_GRAY2BGR)
         
-        gray_face = cv2.copyMakeBorder(gray_face,40,40,40,40,cv2.BORDER_ISOLATED)#扩充图像边缘
-        #判断是否为正脸-begin
+        gray_face = cv2.copyMakeBorder(gray_face,40,40,40,40,cv2.BORDER_ISOLATED)#扩充图像边缘 #Expand the edge of the image
+        #判断是否为正脸-begin #Judge if it's front face - begin
         bFrontFace = False
         retFace = face_classifier.detectMultiScale(
             image = gray_face, scaleFactor=1.1, minNeighbors=5, minSize=(24, 24))
@@ -106,9 +106,9 @@ def load_data_IfFront():
         else:
             #print("not empty")
             bFrontFace = True
-        #判断是否为正脸-end
+        #判断是否为正脸-end #Judge if it's front face - end
 
-        #想要正脸还是非正脸
+        #想要正脸还是非正脸 #Want front or non-front face
         #bWantFrontOrNot = True#正脸
         bWantFrontOrNot = False#非正脸
 
@@ -130,10 +130,10 @@ def load_data_IfFront():
     train_x=train_x.reshape(-1,48,48,1)
     test_x=test_x.reshape(-1,48,48,1)
 
-    return train_x,train_y,test_x,test_y #X=图片，Y=表情标签
+    return train_x,train_y,test_x,test_y #X=图片，Y=表情标签 #X=image, Y=label
 
 
-#简单CNN结构
+#简单CNN结构 #simple CNN
 def simpliest_CNN():
     model = Sequential()
     model.add(Conv2D(32, (5,5), activation='relu', input_shape=[48, 48, 1]))
@@ -146,7 +146,7 @@ def simpliest_CNN():
     
     return model
 
-#更深的简单CNN结构
+#更深的简单CNN结构 #deeper simple CNN
 def deeper_simpliest_CNN():
     model = Sequential()
     model.add(Conv2D(32, (5,5), activation='relu', input_shape=[48, 48, 1]))
@@ -168,7 +168,7 @@ def deeper_simpliest_CNN():
     model.add(Dense(7, activation='softmax'))
     return model
 
-#超级深的简单CNN结构
+#超级深的简单CNN结构 #super deeper simple CNN
 def super_deeper_simpliest_CNN():
     model = Sequential()
     model.add(Conv2D(16, (5,5), activation='relu', input_shape=[48, 48, 1]))
@@ -348,7 +348,7 @@ def CNN2():
 
     return model
 
-#设置训练用参数
+#设置训练用参数 #Set parameter for training
 batch_size = 256
 num_classes = 7
 num_epoch = 1000
@@ -371,7 +371,7 @@ model.compile(optimizer='adam', loss='categorical_crossentropy',
     metrics=['accuracy'])
 
 if(IsTrain):
-    #加载数据
+    #加载数据 #Load data
     #train_x,train_y,test_x,test_y = load_data_IfFront()
     train_x,train_y,test_x,test_y = load_data()
     # print('train_x shape =', train_x.shape)
@@ -383,7 +383,7 @@ if(IsTrain):
 
     start = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     second_start = time.time()
-    history = model.fit(train_x, Y_train,#开始训练
+    history = model.fit(train_x, Y_train,#开始训练 #Start training
                 batch_size=batch_size, nb_epoch=num_epoch,
                 verbose=1,
                 validation_data=(test_x, Y_test),
