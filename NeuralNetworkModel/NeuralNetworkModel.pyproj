@@ -1,0 +1,64 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>b0c9223d-bfcc-4c78-94b3-5a5eda4d68b8</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>src_python\trainIfFrontFace.py</StartupFile>
+    <SearchPath>src_python</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>NeuralNetworkModel</Name>
+    <RootNamespace>NeuralNetworkModel</RootNamespace>
+    <InterpreterId>CondaEnv|CondaEnv|tensorflow</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <InterpreterReference Include="CondaEnv|CondaEnv|tensorflow" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="datasets\" />
+    <Folder Include="dataSets\fer2013\" />
+    <Folder Include="dataSets\JAFFE\" />
+    <Folder Include="logs\" />
+    <Folder Include="temp_images\" />
+    <Folder Include="saved_models\" />
+    <Folder Include="src_python\" />
+    <Folder Include="models_from_internet\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src_python\classifyImages.py" />
+    <Compile Include="src_python\testModel.py" />
+    <Compile Include="src_python\trainIfFrontFace.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src_python\trainModel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src_python\trainModel_female.py" />
+    <Compile Include="src_python\trainModel_male.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logs\history.data" />
+    <Content Include="saved_models\CNN_model.h5" />
+    <Content Include="models_from_internet\simple_CNN.530-0.65.hdf5" />
+    <Content Include="saved_models\gender_mini_XCEPTION.21-0.95.hdf5" />
+    <Content Include="saved_models\haarcascade_frontalface_alt.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
