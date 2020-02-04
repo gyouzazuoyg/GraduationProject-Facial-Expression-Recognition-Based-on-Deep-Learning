@@ -1,14 +1,27 @@
-#Author Name: ÁÖ ÕıºÆ
-#Topic: Facel Expression Recognition Based on Deep Learning
+***
 
-#projct1: FacialExpressionRecognition
-##ÉãÏñÍ·Ê¶±ğÈËÁ³
-##Camera Facial Expression Recogniztion application
+Author Name: æ— æ­£æµ©
 
-#project2: NeuralNetworkModel
-##ÑµÁ·ºÍÆÀ¹ÀÄ£ĞÍ
-##Train and evaluate the models
+Topic: Facel Expression Recognition Based on Deep Learning
 
-#project3£º GoogleFacenet_FAILED
-##ÏÈÓÃGoogle facenetÌáÈ¡ÌØÕ÷ÏòÁ¿Ö®ºóÔÙÑµÁ·µÄÊ§°Ü³¢ÊÔ
-##The failed attempt of using feature vectors extracted by Google Facenet to train
+***
+ 
+# projct1: FacialExpressionRecognition
+ 
+* æ‘„åƒå¤´è¯†åˆ«äººè„¸è¡¨æƒ…
+
+* Camera Facial Expression Recogniztion application
+
+
+# project2: NeuralNetworkModel
+
+* è®­ç»ƒå’Œè¯„ä¼°æ¨¡å‹
+
+* Train and evaluate the models
+
+
+# project3: GoogleFacenet_FAILED
+
+* å…ˆç”¨Google facenetæå–ç‰¹å¾å‘é‡ä¹‹åå†è®­ç»ƒçš„å¤±è´¥å°è¯•
+
+* The failed attempt of using feature vectors extracted by Google Facenet to train
